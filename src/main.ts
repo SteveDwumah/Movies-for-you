@@ -64,11 +64,14 @@ const searchInput = document.getElementById("text") as HTMLInputElement;
 const searchButton = document.getElementById("submit") as HTMLButtonElement;
 
 function searchMovie() {
-  const userInput = searchInput.value;
+  const userInput = searchInput.value.toLowerCase();
   console.log(userInput);
-  const filteredMovies = copiedMovies.filter((movie: string) =>
-    movie.includes(userInput)
-  );
+  const filteredMovies = copiedMovies.filter((movie) => {
+    console.log(movie);
+    return movie[0].toLowerCase().includes(userInput);
+  });
   console.log(filteredMovies);
+  reset();
+  displayMovies(filteredMovies);
 }
 searchButton.addEventListener("click", searchMovie);
