@@ -2,12 +2,12 @@ import { movies } from "./movies";
 const copiedMovies: [string, string, string, string, string[], string][] = [
   ...movies,
 ];
-const mainContainer = document.getElementById("main-content")!;
+// const mainContainer = document.getElementById("main-content")!;
 const container = document.getElementById("movie-container")!;
 
 function displayMovies(inputMovies: string[]) {
   inputMovies.forEach((movie) => {
-    console.log(movie);
+    // console.log(movie);
     const card = document.createElement("div") as HTMLElement;
 
     const titel = document.createElement("h2") as HTMLElement;
@@ -41,13 +41,13 @@ function displayMovies(inputMovies: string[]) {
   });
 }
 
-displayMovies(movies);
+displayMovies(copiedMovies);
 
 const filterUpButton = document.getElementById("year-up");
 
 function filterByYear() {
   copiedMovies.sort((yearA, yearB) => {
-    return yearA[1] - yearB[1];
+    return Number(yearA[1]) - Number(yearB[1]);
   });
 
   reset();
@@ -57,5 +57,18 @@ function filterByYear() {
 filterUpButton?.addEventListener("click", filterByYear);
 
 function reset() {
-  mainContainer.innerHTML = "";
+  container.innerHTML = "";
 }
+
+const searchInput = document.getElementById("text") as HTMLInputElement;
+const searchButton = document.getElementById("submit") as HTMLButtonElement;
+
+function searchMovie() {
+  const userInput = searchInput.value;
+  console.log(userInput);
+  const filteredMovies = copiedMovies.filter((movie: string) =>
+    movie.includes(userInput)
+  );
+  console.log(filteredMovies);
+}
+searchButton.addEventListener("click", searchMovie);
