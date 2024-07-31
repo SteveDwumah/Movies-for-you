@@ -2,7 +2,7 @@ import { movies } from "./movies";
 const copiedMovies: [string, string, string, string, string[], string][] = [
   ...movies,
 ];
-
+const mainContainer = document.getElementById("main-content")!;
 const container = document.getElementById("movie-container")!;
 
 function displayMovies(inputMovies: string[]) {
@@ -41,4 +41,21 @@ function displayMovies(inputMovies: string[]) {
   });
 }
 
-displayMovies(copiedMovies);
+displayMovies(movies);
+
+const filterUpButton = document.getElementById("year-up");
+
+function filterByYear() {
+  copiedMovies.sort((yearA, yearB) => {
+    return yearA[1] - yearB[1];
+  });
+
+  reset();
+  displayMovies(copiedMovies);
+}
+
+filterUpButton?.addEventListener("click", filterByYear);
+
+function reset() {
+  mainContainer.innerHTML = "";
+}
